@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:asso/screens/home_screen.dart';
 import 'package:asso/screens/page_view_liquid_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,7 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with TickerProviderStateMixin {
+  final String token = "token";
   AnimationController _splashController;
 
   @override
@@ -18,12 +20,14 @@ class _SplashScreenState extends State<SplashScreen>
     super.initState();
     _splashController = AnimationController(vsync: this)..value = .5;
 
-    Timer(Duration(milliseconds: 7900) , ()=> _splashController.dispose());
+    Timer(Duration(milliseconds: 7900), () => _splashController.dispose());
 
     Timer(
         Duration(seconds: 8),
-        () => Navigator.of(context).pushReplacement(
-            MaterialPageRoute(builder: (context) => PageViewScreen())));
+        () => Navigator.of(context).pushReplacement(MaterialPageRoute(
+            builder: (context) => token != null ? PageViewScreen() : HomePage()
+            // inja age ghablan token gerefte bashe dg nemire toye liquid swipe va mistaghim mire to app
+            )));
   }
 
   @override

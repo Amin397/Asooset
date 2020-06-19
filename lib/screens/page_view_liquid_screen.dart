@@ -1,4 +1,5 @@
 import 'package:asso/screens/home_screen.dart';
+import 'package:asso/screens/login_screen.dart';
 import 'package:asso/widgets/app_clipper.dart';
 import 'package:flutter/material.dart';
 import 'package:liquid_swipe/Helpers/Helpers.dart';
@@ -20,7 +21,8 @@ class _PageViewScreenState extends State<PageViewScreen> {
   void initState() {
     super.initState();
 
-    pageController = PageController();
+    _currentPage = 0;
+
   }
 
 
@@ -174,7 +176,7 @@ class _PageViewScreenState extends State<PageViewScreen> {
                   alignment: Alignment.center,
                   child: GestureDetector(
                     onTap: (){
-                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => HomePage()));
+                      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => LoginScreen()));
                     },
                     child: Container(
                       height: height * .07,
@@ -228,22 +230,24 @@ class _PageViewScreenState extends State<PageViewScreen> {
         fullTransitionValue: 600,
         enableLoop: false,
         initialPage: 0,
-        enableSlideIcon: pageChangeCallBack(pageController) !=  2 ,
+        enableSlideIcon: pageChangeCallBack(_currentPage) !=  2 ,
         positionSlideIcon: 0.65,
         slideIconWidget: Text("بعدی"),
         waveType: WaveType.liquidReveal,
         currentUpdateTypeCallback: (updateType) =>
             updateTypeCallBack(updateType),
-        onPageChangeCallback: (PageController) => pageChangeCallBack(pageController),
+        onPageChangeCallback: (int) => pageChangeCallBack(_currentPage),
       ),
     );
   }
 
   //havaset bashe in baddie farsi ro taghir bedi k akharin screen nadashte bashe
 
-  int pageChangeCallBack(PageController page) {
-    print(page.initialPage);
-    return page.initialPage;
+  int pageChangeCallBack(int page) {
+    setState(() {
+      print(page + 1);
+      return page +1;
+    });
   }
 
   updateTypeCallBack(UpdateType updateType) {
